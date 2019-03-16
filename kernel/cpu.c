@@ -2319,7 +2319,7 @@ EXPORT_SYMBOL(__cpu_isolated_mask);
  * little and CPUs 4-7 would be big).
  */
 #define LITTLE_CPU_MASK ((1UL << (NR_CPUS / 2)) - 1)
-#define BIG_CPU_MASK    (((1UL << NR_CPUS) - 1) & ~LITTLE_CPU_MASK)
+#define BIG_CPU_MASK    (((1UL << (NR_CPUS - 1)) - 1) & ~LITTLE_CPU_MASK)
 static const unsigned long little_cluster_cpus = LITTLE_CPU_MASK;
 const struct cpumask *const cpu_lp_mask = to_cpumask(&little_cluster_cpus);
 EXPORT_SYMBOL(cpu_lp_mask);
