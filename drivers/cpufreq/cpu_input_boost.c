@@ -37,7 +37,10 @@ static u32 get_boost_freq(struct boost_drv *b, u32 cpu)
 	if (cpumask_test_cpu(cpu, cpu_lp_mask))
 		return CONFIG_INPUT_BOOST_FREQ_LP;
 
-	return CONFIG_INPUT_BOOST_FREQ_PERF;
+	if (cpumask_test_cpu(cpu, cpu_perf_mask))
+		return CONFIG_INPUT_BOOST_FREQ_PERF;
+
+	return CONFIG_INPUT_BOOST_FREQ_PERFP;
 }
 
 static u32 get_boost_state(struct boost_drv *b)
@@ -64,6 +67,8 @@ static void update_online_cpu_policy(void)
 	cpu = cpumask_first_and(cpu_lp_mask, cpu_online_mask);
 	cpufreq_update_policy(cpu);
 	cpu = cpumask_first_and(cpu_perf_mask, cpu_online_mask);
+	cpufreq_update_policy(cpu);
+	cpu = cpumask_first_and(cpu_perfp_mask, cpu_online_mask);
 	cpufreq_update_policy(cpu);
 	put_online_cpus();
 }

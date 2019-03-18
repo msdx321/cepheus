@@ -286,6 +286,12 @@ config INPUT_BOOST_FREQ_PERF
 	help
 	  Input boost frequency for the performance CPU cluster.
 
+config INPUT_BOOST_FREQ_PERFP
+	int "Performance plus cluster boost freq"
+	default "0"
+	help
+	  Input boost frequency for the performance plus CPU cluster.
+
 endif
 
 comment "CPU frequency scaling drivers"
