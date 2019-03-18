@@ -58,6 +58,8 @@ $(warning Detected assembler with broken .inst; disassembly will be unreliable)
   endif
 endif
 
+KBUILD_CFLAGS	+= $(call cc-option,-march=armv8.2-a,) $(call cc-option,-mcpu=cortex-a55,)
+
 ifeq ($(cc-name),clang)
 # This is a workaround for https://bugs.llvm.org/show_bug.cgi?id=30792.
 # TODO: revert when this is fixed in LLVM.
