@@ -50,6 +50,9 @@
 bool skip_thermal = false;
 module_param(skip_thermal, bool, 0644);
 
+bool usb_fc = false;
+module_param(usb_fc, bool, 0644);
+
 static bool off_charge_flag;
 
 bool smblib_rsbux_low(struct smb_charger *chg, int r_thr);
@@ -1396,6 +1399,9 @@ int smblib_set_icl_current(struct smb_charger *chg, int icl_ua)
 	bool suspend = (icl_ua <= USBIN_25MA);
 
 	pr_info("icl_ua value is: %d\n", icl_ua);
+
+	if (icl_ua == USBIN_500MA && usb_fc)
+		icl_ua = USBIN_900MA;
 
 	if (chg->connector_type == POWER_SUPPLY_CONNECTOR_TYPEC) {
 		rc = smblib_masked_write(chg, USB_CMD_PULLDOWN_REG,
