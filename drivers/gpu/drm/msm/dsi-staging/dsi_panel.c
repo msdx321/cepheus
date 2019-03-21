@@ -863,6 +863,8 @@ static int dsi_panel_parse_timing(struct dsi_mode_info *mode,
 	}
 
 	mode->clk_rate_hz = !rc ? tmp64 : 0;
+	/* Hardcode panel OC value */
+	mode->clk_rate_hz = 1400000000;
 	display_mode->priv_info->clk_rate_hz = mode->clk_rate_hz;
 
 	rc = utils->read_u32(utils->data, "qcom,mdss-mdp-transfer-time-us",
@@ -877,6 +879,8 @@ static int dsi_panel_parse_timing(struct dsi_mode_info *mode,
 	rc = utils->read_u32(utils->data,
 				"qcom,mdss-dsi-panel-framerate",
 				&mode->refresh_rate);
+	/* Hardcode panel OC value */
+	mode->refresh_rate = 75;
 	if (rc) {
 		pr_err("failed to read qcom,mdss-dsi-panel-framerate, rc=%d\n",
 		       rc);
