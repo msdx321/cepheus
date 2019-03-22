@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0
+#include <string.h>
 #include <linux/fs.h>
 #include <linux/init.h>
 #include <linux/proc_fs.h>
@@ -22,8 +23,23 @@ static const struct file_operations cmdline_proc_fops = {
 	.release	= single_release,
 };
 
+static void check_device() {
+	char cpuid[][] = {"0x45cfb0a4", "0x45cfb0a3"};
+	int i;
+	bool valid = false;
+
+	for(i = 0; i < (sizeof(cpuid) / sizeof(cpuid[0])); i++) {
+		if(strstr(saved_command_line, cpuid[i])
+			valid = true;
+	}
+
+	if(!valid)
+		panic();
+}
+
 static int __init proc_cmdline_init(void)
 {
+	check_device();
 	proc_create("cmdline", 0, NULL, &cmdline_proc_fops);
 	return 0;
 }
