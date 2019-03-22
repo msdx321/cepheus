@@ -3120,7 +3120,7 @@ static void fts_leave_pointer_event_handler(struct fts_ts_info *info,
 		info->sleep_finger = 0;
 	}
 	input_report_abs(info->input_dev, ABS_MT_TRACKING_ID, -1);
-	logError(1,
+	logError(0,
 		"%s  %s :  Event 0x%02x - release ID[%d] type = %d\n", tag,
 		__func__, event[0], touchId, touchType);
 #ifdef CONFIG_FTS_FOD_AREA_REPORT
