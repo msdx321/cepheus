@@ -650,6 +650,10 @@ static int osm_cpufreq_cpu_init(struct cpufreq_policy *policy)
 		u32 data, src, div, lval, core_count;
 
 		data = clk_osm_read_reg(c, FREQ_REG + i * OSM_REG_SIZE);
+		if (i == 20)
+			data = 1074009241;
+		if (i == 21)
+			data = 1074009497;
 		src = (data & GENMASK(31, 30)) >> 30;
 		div = (data & GENMASK(29, 28)) >> 28;
 		lval = data & GENMASK(7, 0);
@@ -920,6 +924,10 @@ static int clk_osm_read_lut(struct platform_device *pdev, struct clk_osm *c)
 
 	for (i = 0; i < OSM_TABLE_SIZE; i++) {
 		data = clk_osm_read_reg(c, FREQ_REG + i * OSM_REG_SIZE);
+		if (i == 20)
+			data = 1074009241;
+		if (i == 21)
+			data = 1074009497;
 		src = ((data & GENMASK(31, 30)) >> 30);
 		lval = (data & GENMASK(7, 0));
 
@@ -929,6 +937,10 @@ static int clk_osm_read_lut(struct platform_device *pdev, struct clk_osm *c)
 			c->osm_table[i].frequency = XO_RATE * lval;
 
 		data = clk_osm_read_reg(c, VOLT_REG + i * OSM_REG_SIZE);
+		if (i == 20)
+			data = 51643416;
+		if (i == 21)
+			data = 51708952;
 		c->osm_table[i].virtual_corner =
 					((data & GENMASK(21, 16)) >> 16);
 		c->osm_table[i].open_loop_volt = (data & GENMASK(11, 0));
