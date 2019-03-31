@@ -11,6 +11,7 @@
 #include <linux/kthread.h>
 #include <linux/msm_drm_notify.h>
 #include <linux/slab.h>
+#include <uapi/linux/sched/types.h>
 
 /* Available bits for boost state */
 #define SCREEN_OFF		BIT(0)
